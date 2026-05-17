@@ -12,7 +12,7 @@ const background = document.querySelector("#background") as HTMLDivElement;
 
 
 
-async function loadWeather(lat:number, lon:number) {
+async function loadWeather(lat:number, lon:number) {  //kipakolja az oldalra az adatokat
     const weatherData = await getWeather(lat, lon);
     backgroundSwitch(
         weatherData.current.weather_code, background
@@ -33,6 +33,8 @@ searchBTN.addEventListener("click", async () => {
 
 });
 
-
+navigator.geolocation.getCurrentPosition((position) => {
+    loadWeather(position.coords.latitude, position.coords.longitude);
+});
 
 
