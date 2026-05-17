@@ -1,5 +1,5 @@
-const tempP = document.querySelector("#temp") as HTMLParagraphElement; 
-const rainP = document.querySelector("#esomenny") as HTMLParagraphElement;
+// const tempP = document.querySelector("#temp") as HTMLParagraphElement; 
+// const rainP = document.querySelector("#esomenny") as HTMLParagraphElement;
 const searchedCity = document.querySelector("#citysearch") as HTMLInputElement;
 const searchBTN = document.querySelector("#searchBTN") as HTMLButtonElement;
 const background = document.querySelector("#background") as HTMLDivElement;
@@ -17,12 +17,19 @@ async function getWeather(lat: number, lon: number) { // async a varakozos fuggv
     const weatherData = await weatherRequest.json();
     console.log(weatherData);
    
-    tempP.innerHTML = `Hőmérséklet: ${weatherData.current.temperature_2m}°C`; //kulon fuggvenybe kellene majd rakni a requestbol
-    rainP.innerHTML = `Csapadékmennyiség: ${weatherData.current.rain} mm/h`;
+    // tempP.innerHTML = `Hőmérséklet: ${weatherData.current.temperature_2m}°C`; //kulon fuggvenybe kellene majd rakni a requestbol
+    // rainP.innerHTML = `Csapadékmennyiség: ${weatherData.current.rain} mm/h`;
 
     return weatherData; //hogy a backgroundswitchnek meglegyen
 }
 getWeather(47.68, 17.63);
+
+async function loadWeather(lat:number, lon:number) {
+    const weatherData = await getWeather(lat, lon);
+    backgroundSwitch(
+        weatherData.current.weather_code
+    );
+}
 
 //keresés
 async function searchCity(city: string) {
@@ -32,7 +39,6 @@ async function searchCity(city: string) {
         const cityData = await cityRequest.json();
         return cityData;
 }
-
 searchBTN.addEventListener("click", async () => {
     const cityData =await searchCity(searchedCity.value);
 
@@ -41,50 +47,49 @@ searchBTN.addEventListener("click", async () => {
         return;
     }
     const result = cityData.results[0];
-    const weatherData = await getWeather(result.latitude, result.longitude);
-
-    backgroundSwitch(
-        weatherData.current.weather_code
-    );
+   
+    loadWeather(result.latitude, result.longitude);
 
 });
+
+
 
 
 //background kep
 
 function backgroundSwitch(weatherCode: number) {
- switch (true) {
+ console.log(weatherCode);
+   switch (true) {
     
     case weatherCode === 0:
-        background.style.backgroundImage = "url('src/sunny.avif')";
+        background.style.backgroundImage = "url('/images/sunny.avif')";
+        console.log("Sunny");
         break;
     
     case weatherCode <= 48: 
-        background.style.backgroundImage = "url('src/partly-cloudy.avif')";
+        background.style.backgroundImage = "url('/images/drizzle.avif')";
+        console.log("Partly cloudy");
         break;
     
     case weatherCode <= 57:
-        background.style.backgroundImage = "url('src/cloudy.avif')";
+        background.style.backgroundImage = "url('/images/cloudy.avif')";
+        console.log("Cloudy");
         break;
     
     case weatherCode <= 67:
-        background.style.backgroundImage = "url('src/rainy.avif')";
+        background.style.backgroundImage = "url('/images/rainy.avif')";
+        console.log("Rainy");
         break;
 
     case weatherCode <= 77:
-        background.style.backgroundImage = "url('src/snowy.avif')";
+        background.style.backgroundImage = "url('/images/snowy.avif')";
+        console.log("Snowy");
         break;
 
     default:
-        background.style.backgroundImage = "url('src/default.avif')";
+        background.style.backgroundImage = "url('/images/thunderstorm.avif')";
+        console.log("Default");
 
  }   
 }
 
-backgroundSwitch(
-    weatherData.current.weather_code
-);
-
-tempP.innerHTML =
-    `Hőmérséklet:
-    ${weatherData.current.temperature_2m}°C`;
