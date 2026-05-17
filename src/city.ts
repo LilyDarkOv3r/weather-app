@@ -1,4 +1,6 @@
 export { searchCity };
+export { saveCity };
+export { getSavedCity };
 
 //keresés
 async function searchCity(city: string) {
@@ -7,4 +9,12 @@ async function searchCity(city: string) {
 
         const cityData = await cityRequest.json();
         return cityData;
+}
+
+function saveCity(city:string) {
+    localStorage.setItem("lastCity", city);
+}
+
+function getSavedCity() {
+    return localStorage.getItem("lastCity");
 }

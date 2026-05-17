@@ -7,18 +7,31 @@
     <title>weather-app</title>
   </head>
   <body>
-    <div id="background"></div>
+    <div id="background">
+    
+    <div id="overlay"></div>
+
     <div id="app">
-      <div id="weathercard">
-        <p id="temp"> </p>
-        <p id="esomenny"></p>
-      </div>
-    </div>
-      <div id="weatherdiv">
+      
+      <div id="search-bar">
         <input type="text" id="citysearch" placeholder="Város neve" autocomplete="off">
         <button id="searchBTN">Keresés</button>
       </div>
+
+      <div id="hero">
+        <p id="city-name"></p>
+        <p id="weather-text"></p>
+      </div>
+      
+      <div id="weathercard">
+        <p id="weather-icon"></p> 
+        <p id="temp"> </p>
+        <p id="esomenny"></p>     
+      </div>
+    
+    </div>
     </div>
     <script src="/src/main.ts" type="module"></script>
+    </div>
   </body>
 </html>
