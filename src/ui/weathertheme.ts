@@ -48,7 +48,7 @@ function getWeatherTheme(weatherCode: number) {
         default:
             return {
                 background:
-                    "/images/default.avif",
+                    "/images/thunderstorm.avif",
                 icon: "⛈️",
                 text: "Viharos"
             };

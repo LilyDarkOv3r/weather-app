@@ -1,5 +1,5 @@
 import { getWeather } from "./api/weather";
-import { saveCity as savedCity, searchCity, getSavedCity } from "./city";
+import { saveCity as savedCity, searchCity, getSavedCity, saveCity } from "./city";
 import { getWeatherTheme } from "./ui/weathertheme";
 import { getWeatherText } from "./ui/weatherText";
 
@@ -13,6 +13,8 @@ const background = document.querySelector("#background") as HTMLDivElement;
 const weatherText = document.querySelector("#weather-text") as HTMLParagraphElement;
 const cityName = document.querySelector("#city-name") as HTMLHeadingElement;
 const weatherIcon = document.querySelector("#weather-icon") as HTMLParagraphElement;
+const searchResults = document.querySelector("#search-results") as HTMLDivElement;
+
 
 
 async function loadWeather(lat:number, lon:number) {  //kipakolja az oldalra az adatokat
@@ -31,10 +33,10 @@ async function loadWeather(lat:number, lon:number) {  //kipakolja az oldalra az 
 searchBTN.addEventListener("click", async () => {
     const cityData = await searchCity(searchedCity.value);
 
-    if (!cityData || cityData.results.length === 0) {
-        alert("Nem található ilyen város");
-        return;
-    }
+    // if (!cityData || cityData.results.length === 0) {
+    //     alert("Nem található ilyen város");
+    //     return;
+    // }
     const result = cityData.results[0];
     cityName.innerHTML = result.name;
     loadWeather(result.latitude, result.longitude);
@@ -69,4 +71,44 @@ navigator.geolocation.getCurrentPosition((position) => {
     loadWeather(position.coords.latitude, position.coords.longitude);
 });
 
+searchedCity.addEventListener("input", async () => {
+    if (searchedCity.value === "") {
+    searchResults.innerHTML = "";
+    searchResults.style.display = "none";
+    return;
+}
+    const cityData = await searchCity(searchedCity.value);
+    searchResults.innerHTML = "";
+    searchResults.style.display = "flex";
+    
+    cityData.results.forEach((city: any) => {
+        const cityElement = document.createElement("div");
+        cityElement.classList.add("search-result");
+        cityElement.innerHTML = city.name;
+        cityElement.addEventListener("click", () => {
+            cityName.innerHTML = city.name;
+            loadWeather(city.latitude, city.longitude);
+            saveCity(city.name);
+            
+            searchResults.innerHTML = "";
+            searchResults.style.display = "none";
+        });
+        searchResults.appendChild(cityElement);
+    });
+});
 
+searchedCity.addEventListener(
+    "keydown",
+
+    (event) => {
+
+        if (event.key === "Enter") {
+
+            searchBTN.click();
+            searchResults.innerHTML = "";
+            searchResults.style.display =
+    "none";
+        }
+
+    }
+);
