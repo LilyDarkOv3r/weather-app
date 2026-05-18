@@ -14,20 +14,54 @@ const weatherText = document.querySelector("#weather-text") as HTMLParagraphElem
 const cityName = document.querySelector("#city-name") as HTMLHeadingElement;
 const weatherIcon = document.querySelector("#weather-icon") as HTMLParagraphElement;
 const searchResults = document.querySelector("#search-results") as HTMLDivElement;
+const humidity = document.querySelector( "#humidity") as HTMLParagraphElement;
+const windSpeed = document.querySelector("#wind-speed") as HTMLParagraphElement;
+const clock = document.querySelector( "#clock") as HTMLDivElement;
+const feelsLike = document.querySelector("#feels-like") as HTMLParagraphElement;
 
+let clockInterval: number|undefined; //ora resethez
 
+function UpdateClock(timezone:string) {
+       const cityTime = new Date().toLocaleTimeString(
+        "hu-HU",
+        {
+            timeZone: timezone
+        }
+    );
+    clock.innerHTML = cityTime;
+}
 
 async function loadWeather(lat:number, lon:number) {  //kipakolja az oldalra az adatokat
     const weatherData = await getWeather(lat, lon);
 
     tempP.innerHTML = `  ${weatherData.current.temperature_2m}°C`;
     rainP.innerHTML = ` ${weatherData.current.rain} mm/h`;
+    humidity.innerHTML = `${weatherData.current.relative_humidity_2m}%`;
+    windSpeed.innerHTML = `${weatherData.current.wind_speed_10m} km/h`;
+    feelsLike.innerHTML = `Feels like ${weatherData.current.apparent_temperature}°C`;
+    const timezone = weatherData.timezone;
+    clearInterval(clockInterval);
+    setInterval(() => { //ez itt callback!!!
+        UpdateClock(timezone);
+    }, 1000);
+    
+
+   
     weatherText.innerHTML = getWeatherText(weatherData.current.weather_code);
     const weatherTheme = getWeatherTheme(weatherData.current.weather_code);
 
-    background.style.backgroundImage = `url(${weatherTheme.background})`;
+    background.style.transform = "scale(1.05)"; //nagyobbra meretezi a kepet, igy elmosodik
+    background.style.filter = "blur(4px)"; //elmosodik a kep
+    setTimeout(() => {
+        background.style.backgroundImage = `url(${weatherTheme.background})`;
+        background.style.transform = "scale(1)"; //visszaallitja a kep meretet
+        background.style.filter = "blur(0px)"; //visszaallitja a kepet
+    }, 300); //300ms mulva megvaltoztatja a kepet, igy atmegy a ket kep kozott, ha azonnal valtoztatna akkor nem lenne atmenet
+
+    //background.style.backgroundImage = `url(${weatherTheme.background})`;
     weatherText.innerHTML = weatherTheme.text;
     weatherIcon.innerHTML = weatherTheme.icon;
+    //console.log(weatherData.current);
 }
 
 searchBTN.addEventListener("click", async () => {
@@ -39,6 +73,7 @@ searchBTN.addEventListener("click", async () => {
     // }
     const result = cityData.results[0];
     cityName.innerHTML = result.name;
+    
     loadWeather(result.latitude, result.longitude);
     savedCity(result.name);
 
