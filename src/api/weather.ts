@@ -18,6 +18,6 @@ async function getWeather(lat: number, lon: number) { // async a varakozos fuggv
     // tempP.innerHTML = `Hőmérséklet: ${weatherData.current.temperature_2m}°C`; //kulon fuggvenybe kellene majd rakni a requestbol
     // rainP.innerHTML = `Csapadékmennyiség: ${weatherData.current.rain} mm/h`;
 
-    return weatherData; //hogy a backgroundswitchnek meglegyen
+    return weatherData;
 }
 getWeather(47.68, 17.63);

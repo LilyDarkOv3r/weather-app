@@ -44,7 +44,7 @@ async function loadWeather(lat:number, lon:number) {  //kipakolja az oldalra az 
     setInterval(() => { //ez itt callback!!!
         UpdateClock(timezone);
     }, 1000);
-    
+    //clearInterval(clockInterval);
 
    
     weatherText.innerHTML = getWeatherText(weatherData.current.weather_code);
@@ -137,17 +137,11 @@ searchedCity.addEventListener("input", async () => {
     });
 });
 
-searchedCity.addEventListener(
-    "keydown",
-
-    (event) => {
-
+searchedCity.addEventListener("keydown",(event) => {
         if (event.key === "Enter") {
-
             searchBTN.click();
             searchResults.innerHTML = "";
-            searchResults.style.display =
-    "none";
+            searchResults.style.display = "none";
         }
 
     }
