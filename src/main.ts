@@ -65,6 +65,8 @@ async function loadWeather(lat:number, lon:number) {  //kipakolja az oldalra az 
     weatherText.innerHTML = weatherTheme.text;
     weatherIcon.innerHTML = weatherTheme.icon;
     //console.log(weatherData.current);
+
+    console.log(weatherData);
 }
 
 searchBTN.addEventListener("click", async () => {

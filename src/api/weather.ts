@@ -6,7 +6,7 @@ export { getWeather };
 
 async function getWeather(lat: number, lon: number) { // async a varakozos fuggveny miatt
     const weatherRequest = await fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code,rain,relative_humidity_2m,wind_speed_10m,apparent_temperature`);
+        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code,rain,relative_humidity_2m,wind_speed_10m,apparent_temperature&current=is_day&timezone=auto`);
     
     if (!weatherRequest.ok) { // ha nem valaszol az api
     alert("Hiba történt");
