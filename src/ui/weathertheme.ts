@@ -1,6 +1,10 @@
 export { getWeatherTheme };
+export { updateDayTime };
 
 //background kep
+
+const overlay = document.querySelector("#overlay") as HTMLDivElement;
+
 
 function getWeatherTheme(weatherCode: number) {
     switch (true) {
@@ -57,3 +61,22 @@ function getWeatherTheme(weatherCode: number) {
 
 }
 
+function updateDayTime(timezone: string) {
+    const hour = Number(new Date().toLocaleTimeString(
+                "hu-HU",
+                {
+                    hour: "numeric",
+                    hour12: false,
+                    timeZone:
+                        timezone
+                }
+            )
+        );
+    if (hour >= 18 || hour <= 6) {
+       overlay.style.background ="rgba(0,0,0,0.5)";
+    }
+   else {
+        overlay.style.background =
+            "rgba(0,0,0,0.2)";
+    }
+}

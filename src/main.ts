@@ -1,6 +1,6 @@
 import { getWeather } from "./api/weather";
 import { saveCity as savedCity, searchCity, getSavedCity, saveCity } from "./city";
-import { getWeatherTheme } from "./ui/weathertheme";
+import { getWeatherTheme, updateDayTime } from "./ui/weathertheme";
 import { getWeatherText } from "./ui/weatherText";
 
 
@@ -57,6 +57,9 @@ async function loadWeather(lat:number, lon:number) {  //kipakolja az oldalra az 
         background.style.transform = "scale(1)"; //visszaallitja a kep meretet
         background.style.filter = "blur(0px)"; //visszaallitja a kepet
     }, 300); //300ms mulva megvaltoztatja a kepet, igy atmegy a ket kep kozott, ha azonnal valtoztatna akkor nem lenne atmenet
+
+    updateDayTime(weatherData.timezone);
+
 
     //background.style.backgroundImage = `url(${weatherTheme.background})`;
     weatherText.innerHTML = weatherTheme.text;
