@@ -18,6 +18,9 @@ const humidity = document.querySelector( "#humidity") as HTMLParagraphElement;
 const windSpeed = document.querySelector("#wind-speed") as HTMLParagraphElement;
 const clock = document.querySelector( "#clock") as HTMLDivElement;
 const feelsLike = document.querySelector("#feels-like") as HTMLParagraphElement;
+const sunSecondary = document.querySelector("#sun-secondary") as HTMLParagraphElement;
+
+
 
 
 let clockInterval: number|undefined; //ora resethez
@@ -34,6 +37,28 @@ function UpdateClock(timezone:string) {
 
 async function loadWeather(lat:number, lon:number) {  //kipakolja az oldalra az adatokat
     const weatherData = await getWeather(lat, lon);
+    //console.log(weatherData.daily.sunrise);
+    const sunrise = weatherData.daily.sunrise[0];
+    const sunset = weatherData.daily.sunset[0];
+    const sunriseTime = sunrise.split("T")[1];
+    const sunsetTime = sunset.split("T")[1];
+   const currentHour = Number(new Date().toLocaleTimeString(
+            "hu-HU",
+            {
+                hour: "numeric",
+                hour12: false,
+                timeZone:
+                    weatherData.timezone
+            }
+        )
+    );
+    
+if (currentHour >= 18 || currentHour < 6) {
+    sunSecondary.innerHTML = `🌇 Sunset ${sunsetTime} <span id="sun-primary">🌅 Sunrise ${sunriseTime}</span> `;
+}
+else {
+    sunSecondary.innerHTML = `🌅 Sunrise ${sunriseTime} <span id="sun-primary">🌇 Sunset ${sunsetTime}</span>`;
+}
 
     tempP.innerHTML = `  ${weatherData.current.temperature_2m}°C`;
     rainP.innerHTML = ` ${weatherData.current.rain} mm/h`;

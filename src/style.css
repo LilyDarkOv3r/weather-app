@@ -4,7 +4,7 @@
     left: 0;
     width: 100%;
     height: 100vh;
-    z-index: -1;
+    z-index: -2;
     background-size: cover;
     background-position: center;
     transition: transform 0.8s ease,
@@ -88,6 +88,7 @@ body {
     position: relative;
     width: 100vw;
     height: 100vh;
+    z-index: 1;
 }
 
 #search-bar {
@@ -137,9 +138,12 @@ body {
     left: 0;
     width: 100%;
     height: 100vh;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0,0,0,0.25);
     z-index: -1;
     transition: background 0.8s ease;
+    z-index: -1;
+    /*background: red;
+    opacity: 0.5;*/
 }
 
 #search-results {
@@ -271,6 +275,15 @@ body {
     will-change: transform; /* GPU-s render mert enélkül úgy megy a float mint a cyberpunk 2077 megjelenéskor */
 }
 
+body.night-mode #overlay {
+    background-image:
+        radial-gradient(
+            circle,
+            rgba(0,0,0,0.15) 30%,
+            rgba(0,0,0,0.75) 100%
+        );
+}
+
 
 
 @keyframes float {
@@ -286,4 +299,11 @@ body {
         transform:
             translateY(0px);
     }
+}
+
+#sun-primary {
+    display: block;
+    font-size: 29px;
+    font-weight: bold;
+    margin-top: 10px;
 }
