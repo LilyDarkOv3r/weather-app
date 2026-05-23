@@ -41,7 +41,7 @@ async function loadWeather(lat:number, lon:number) {  //kipakolja az oldalra az 
     feelsLike.innerHTML = `Feels like ${weatherData.current.apparent_temperature}°C`;
     const timezone = weatherData.timezone;
     clearInterval(clockInterval);
-    setInterval(() => { //ez itt callback!!!
+    clockInterval = setInterval(() => { //ez itt callback!!!
         UpdateClock(timezone);
     }, 1000);
     //clearInterval(clockInterval);
