@@ -19,6 +19,7 @@ const windSpeed = document.querySelector("#wind-speed") as HTMLParagraphElement;
 const clock = document.querySelector( "#clock") as HTMLDivElement;
 const feelsLike = document.querySelector("#feels-like") as HTMLParagraphElement;
 
+
 let clockInterval: number|undefined; //ora resethez
 
 function UpdateClock(timezone:string) {
@@ -84,8 +85,8 @@ searchBTN.addEventListener("click", async () => {
 
 });
 
-loadWeather(47.4979, 19.0402); //pesti koordok hog ne legyen ures a weboldal
-cityName.innerHTML = "Budapest";
+//loadWeather(47.4979, 19.0402); //pesti koordok hog ne legyen ures a weboldal
+//cityName.innerHTML = "Budapest";
 
 async function startLoading() {
     const savedCity = getSavedCity();
@@ -144,5 +145,32 @@ searchedCity.addEventListener("keydown",(event) => {
             searchResults.style.display = "none";
         }
 
+    }
+);
+const cycleicon = document.querySelector("#cycleicon") as HTMLDivElement;
+
+cycleicon.animate(
+
+    [
+
+        {
+            transform:
+                "translateX(40px)",
+
+            opacity: 0
+        },
+
+        {
+            transform:
+                "translateX(0)",
+
+            opacity: 1
+        }
+
+    ],
+
+    {
+        duration: 500,
+        easing: "ease"
     }
 );

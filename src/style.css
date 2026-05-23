@@ -261,3 +261,29 @@ body {
     left:63%;
     transform: translate(-50%, -50%);
 }
+
+#cycleicon {
+    position: absolute;
+    top: 110px;
+    right: 85px;
+    font-size: 252px;
+    animation: float 4s cubic-bezier(0.42, 0, 0.55, 1) infinite;
+    will-change: transform; /* GPU-s render mert enélkül úgy megy a float mint a cyberpunk 2077 megjelenéskor */
+}
+
+
+
+@keyframes float {
+    0% {
+        transform:
+            translateY(0px);
+    }
+    50% {
+        transform:
+            translateY(-6px);
+    }
+    100% {
+        transform:
+            translateY(0px);
+    }
+}

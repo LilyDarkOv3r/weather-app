@@ -4,7 +4,7 @@ export { updateDayTime };
 //background kep
 
 const overlay = document.querySelector("#overlay") as HTMLDivElement;
-
+const cycleIcon = document.querySelector("#cycleicon") as HTMLDivElement;
 
 function getWeatherTheme(weatherCode: number) {
     switch (true) {
@@ -72,11 +72,15 @@ function updateDayTime(timezone: string) {
                 }
             )
         );
-    if (hour >= 18 || hour <= 6) {
-       overlay.style.background ="rgba(0,0,0,0.5)";
+    if (hour >= 18 || hour < 6) {
+       overlay.style.background ="rgba(2, 17, 65, 0.54)";
+       document.body.classList.add("night-mode");
+        cycleIcon.innerHTML = "🌙";
     }
    else {
         overlay.style.background =
-            "rgba(0,0,0,0.2)";
+            "rgba(71, 75, 22, 0.2)";
+        document.body.classList.remove("night-mode");
+        cycleIcon.innerHTML = "☀️";
     }
 }
