@@ -89,21 +89,42 @@ searchBTN.addEventListener("click", async () => {
 //cityName.innerHTML = "Budapest";
 
 async function startLoading() {
+    
+navigator.geolocation.getCurrentPosition((position) => {
+    cityName.innerHTML = "Saját helyzet";
+    loadWeather(position.coords.latitude, position.coords.longitude);  
+    });
+    
+async() => {
     const savedCity = getSavedCity();
 if (savedCity) {
     const cityData = await searchCity(savedCity);
-    
-    if (cityData&& cityData.results && cityData.results.length > 0) {
-        const result = cityData.results[0];
+    const result = cityData.results[0];
 
-        cityName.innerHTML = result.name;
-        loadWeather(result.latitude, result.longitude);
-    }    
+    cityName.innerHTML = result.name;
+    loadWeather(result.latitude, result.longitude);
 }
 else {
     cityName.innerHTML = "Budapest";
     loadWeather(47.4979, 19.0402);
-}};
+}}};
+
+
+//    const savedCity = getSavedCity();
+// if (savedCity) {
+//     const cityData = await searchCity(savedCity);
+    
+//     if (cityData&& cityData.results && cityData.results.length > 0) {
+//         const result = cityData.results[0];
+
+//         cityName.innerHTML = result.name;
+//         loadWeather(result.latitude, result.longitude);
+//     }    
+// }
+// else {
+//     cityName.innerHTML = "Budapest";
+//     loadWeather(47.4979, 19.0402);
+// }};
 
 startLoading();
 
