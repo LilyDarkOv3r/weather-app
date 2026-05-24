@@ -1,5 +1,5 @@
 export { getWeather };
-
+export { getLocationName };
 
 
 //api teszt
@@ -21,3 +21,10 @@ async function getWeather(lat: number, lon: number) { // async a varakozos fuggv
     return weatherData;
 }
 getWeather(47.68, 17.63);
+
+async function getLocationName(lat:number, lon:number) {
+    const locationRequest = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`);
+    const locationData = await locationRequest.json();
+     return (locationData.address.city || locationData.address.town || locationData.address.village);
+}

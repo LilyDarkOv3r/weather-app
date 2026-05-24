@@ -1,4 +1,4 @@
-import { getWeather } from "./api/weather";
+import { getWeather, getLocationName } from "./api/weather";
 import { saveCity as savedCity, searchCity, getSavedCity, saveCity } from "./city";
 import { getWeatherTheme, updateDayTime } from "./ui/weathertheme";
 import { getWeatherText } from "./ui/weatherText";
@@ -113,14 +113,7 @@ searchBTN.addEventListener("click", async () => {
 //loadWeather(47.4979, 19.0402); //pesti koordok hog ne legyen ures a weboldal
 //cityName.innerHTML = "Budapest";
 
-async function startLoading() {
-    
-navigator.geolocation.getCurrentPosition((position) => {
-    cityName.innerHTML = "Saját helyzet";
-    loadWeather(position.coords.latitude, position.coords.longitude);  
-    });
-    
-async() => {
+async function startLoading() {    
     const savedCity = getSavedCity();
 if (savedCity) {
     const cityData = await searchCity(savedCity);
@@ -132,7 +125,7 @@ if (savedCity) {
 else {
     cityName.innerHTML = "Budapest";
     loadWeather(47.4979, 19.0402);
-}}};
+}};
 
 
 //    const savedCity = getSavedCity();
@@ -153,9 +146,10 @@ else {
 
 startLoading();
 
-navigator.geolocation.getCurrentPosition((position) => {
-    cityName.innerHTML = "Saját helyzet";
-    loadWeather(position.coords.latitude, position.coords.longitude);
+navigator.geolocation.getCurrentPosition(async (position) => {
+    const locationName = await getLocationName(position.coords.latitude, position.coords.longitude);
+    cityName.innerHTML = locationName;
+    loadWeather(position.coords.latitude, position.coords.longitude);      
 });
 
 searchedCity.addEventListener("input", async () => {
