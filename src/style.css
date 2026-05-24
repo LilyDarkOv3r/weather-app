@@ -34,6 +34,8 @@
 
 #weathercard:hover {
     transform: translateY(-53%);
+    background: rgba(0,0,0,0.5);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
 #weathercard p {
@@ -201,7 +203,7 @@ body {
 
 #small-cards {  /* AZ EGESZ CONTAINER*/
     position: absolute;
-    top: 65%;
+    top: 70%;
     right: 15%;
     display: flex;
     gap: 20px;
@@ -306,4 +308,84 @@ body.night-mode #overlay {
     font-size: 29px;
     font-weight: bold;
     margin-top: 10px;
+}
+
+#forecast-container {
+    position: absolute;
+    left: 60px;
+    bottom: 60px;
+    display: flex;
+    gap: 12px;
+}
+
+.forecast-card {
+    width: 70px;
+    padding: 12px;
+    height: 300px;
+    border-radius: 30px;
+    background:
+        rgba(255,255,255,0.08);
+    backdrop-filter:
+        blur(12px);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: transform 0.3s ease,
+                background 0.3s ease;
+}
+
+.forecast-card:hover {
+    background: rgba(0,0,0,0.5);
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+#forecast-max {
+    margin-top: 10px;
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+    width: 100%;    
+}
+
+#forecast-min {
+    font-size: 24px;
+    opacity: 0.8;
+    text-align: center;
+    width: 100%;
+    margin-top: -10px;
+}
+
+.forecast-card::before {
+    content: "";
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background:
+        rgba(255,255,255,0.15);
+    filter:
+        blur(50px);
+    top: 40%;
+    left: 50%;
+    transform:
+        translate(-50%, -50%);
+    z-index: -1;
+}
+
+#forecast-icon {
+    margin-top: 5px;
+    font-size: 32px;
+}
+
+#formatted-day {
+    font-size: 18px;
+    opacity: 0.8;
+    text-transform: uppercase;
+    font-weight: bold;
 }

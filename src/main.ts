@@ -19,6 +19,7 @@ const windSpeed = document.querySelector("#wind-speed") as HTMLParagraphElement;
 const clock = document.querySelector( "#clock") as HTMLDivElement;
 const feelsLike = document.querySelector("#feels-like") as HTMLParagraphElement;
 const sunSecondary = document.querySelector("#sun-secondary") as HTMLParagraphElement;
+const forecastContainer = document.querySelector("#forecast-container") as HTMLDivElement;
 
 
 
@@ -86,6 +87,21 @@ else {
 
     updateDayTime(weatherData.timezone);
 
+    forecastContainer.innerHTML = ""; //elorejelzes torlese, hogy ne gyarapszon vegtelenul a forecast ha sokat keresunk
+    weatherData.daily.time.forEach((day:string, index:number) => {
+        const maxTemp = weatherData.daily.temperature_2m_max[index];
+        const minTemp = weatherData.daily.temperature_2m_min[index];
+        const weatherCode = weatherData.daily.weather_code[index];
+        const forecastCard = document.createElement("div");
+        const formattedDay = new Date(day).toLocaleDateString("en-US", { weekday: "short" });
+        const weatherTheme = getWeatherTheme(weatherCode);
+        forecastCard.classList.add("forecast-card");
+        forecastCard.innerHTML = `<p id="formatted-day">${formattedDay}</p>
+        <p id="forecast-max">${maxTemp}° </p>
+        <p id="forecast-min">${minTemp}°</p>
+        <p id="forecast-icon">${weatherTheme.icon}</p>`;
+        forecastContainer.appendChild(forecastCard)});
+
 
     //background.style.backgroundImage = `url(${weatherTheme.background})`;
     weatherText.innerHTML = weatherTheme.text;
@@ -147,11 +163,16 @@ else {
 startLoading();
 
 navigator.geolocation.getCurrentPosition(async (position) => {
-    const locationName = await getLocationName(position.coords.latitude, position.coords.longitude);
-    cityName.innerHTML = locationName;
-    loadWeather(position.coords.latitude, position.coords.longitude);      
-});
-
+const locationName = await getLocationName(position.coords.latitude, position.coords.longitude);
+cityName.innerHTML = locationName;
+loadWeather(position.coords.latitude, position.coords.longitude);
+    },
+() => {
+setTimeout(() => {startLoading();}, 
+    2000);
+},
+    {timeout: 10000}
+);
 searchedCity.addEventListener("input", async () => {
     if (searchedCity.value === "") {
     searchResults.innerHTML = "";

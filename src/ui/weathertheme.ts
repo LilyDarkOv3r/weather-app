@@ -9,12 +9,21 @@ const cycleIcon = document.querySelector("#cycleicon") as HTMLDivElement;
 function getWeatherTheme(weatherCode: number) {
     switch (true) {
 
-        case weatherCode === 0:
+        case weatherCode <= 1:
             return {
                 background:
+                
                     "/images/sunny.avif",
                 icon: "☀️",
                 text: "Tiszta ég"
+            };
+
+        case weatherCode <= 3:
+            return {
+                background:
+                    "/images/partlycloudy.avif",
+                icon: "⛅",
+                text: "Derült"
             };
 
         case weatherCode <= 48:
