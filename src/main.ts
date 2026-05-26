@@ -108,7 +108,7 @@ else {
     weatherIcon.innerHTML = weatherTheme.icon;
     //console.log(weatherData.current);
 
-    console.log(weatherData);
+    //console.log(weatherData);
 }
 
 searchBTN.addEventListener("click", async () => {

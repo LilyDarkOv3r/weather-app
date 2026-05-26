@@ -13,7 +13,7 @@ async function getWeather(lat: number, lon: number) { // async a varakozos fuggv
     return; //kilep az egesz fuggvenybol, kesobb johet ide egy trycatch hogy ujraprobalja ha marad idom (nem lesz ra lol), mert igy nem fogja megprobalni ujra
 }
     const weatherData = await weatherRequest.json();
-    console.log(weatherData.daily);
+    //console.log(weatherData.daily);
    
     // tempP.innerHTML = `Hőmérséklet: ${weatherData.current.temperature_2m}°C`; //kulon fuggvenybe kellene majd rakni a requestbol
     // rainP.innerHTML = `Csapadékmennyiség: ${weatherData.current.rain} mm/h`;
