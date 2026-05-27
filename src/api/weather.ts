@@ -10,14 +10,9 @@ async function getWeather(lat: number, lon: number) { // async a varakozos fuggv
     
     if (!weatherRequest.ok) { // ha nem valaszol az api
     alert("Hiba történt");
-    return; //kilep az egesz fuggvenybol, kesobb johet ide egy trycatch hogy ujraprobalja ha marad idom (nem lesz ra lol), mert igy nem fogja megprobalni ujra
+    return;
 }
     const weatherData = await weatherRequest.json();
-    console.log(weatherData.daily);
-   
-    // tempP.innerHTML = `Hőmérséklet: ${weatherData.current.temperature_2m}°C`; //kulon fuggvenybe kellene majd rakni a requestbol
-    // rainP.innerHTML = `Csapadékmennyiség: ${weatherData.current.rain} mm/h`;
-
     return weatherData;
 }
 getWeather(47.68, 17.63);
