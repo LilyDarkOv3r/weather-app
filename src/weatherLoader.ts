@@ -17,7 +17,7 @@ export async function loadWeather(lat:number, lon:number) {  //kipakolja az olda
 
 }
 
-const cityName = document.querySelector("#city-name") as HTMLHeadingElement;
+const cityName = document.querySelector("#city-name") as HTMLParagraphElement;
 
 export async function startLoading() {    
     const savedCity = getSavedCity();
