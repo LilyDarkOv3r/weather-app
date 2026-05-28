@@ -31,4 +31,4 @@ if (savedCity) {
 else {
     cityName.innerHTML = "Budapest";
     loadWeather(47.4979, 19.0402);
-}};
+}}; 

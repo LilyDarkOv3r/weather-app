@@ -16,3 +16,4 @@ function handleGeolocationError() {
 export function doGeolocation() {
     navigator.geolocation.getCurrentPosition(handleGeolocationSuccess, handleGeolocationError, {timeout: 10000});
 }
+    

@@ -17,4 +17,4 @@ function saveCity(city:string) {
 
 function getSavedCity() {
     return localStorage.getItem("lastCity");
-}
+}   

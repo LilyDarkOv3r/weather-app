@@ -82,10 +82,10 @@ const feelsLike = document.querySelector("#feels-like") as HTMLParagraphElement;
 const weatherText = document.querySelector("#weather-text") as HTMLParagraphElement;
 const weatherIcon = document.querySelector("#weather-icon") as HTMLParagraphElement;
 
-import { getWeatherText } from "./weatherText";
+
 
 export function renderCurrentWeather(weatherData:any) {
-    const weatherTheme = getWeatherTheme(weatherData.current.weathercode);
+    const weatherTheme = getWeatherTheme(weatherData.current.weather_code);
     
     tempP.innerHTML = `  ${weatherData.current.temperature_2m}°C`;
     rainP.innerHTML = ` ${weatherData.current.rain} mm/h`;
@@ -96,7 +96,6 @@ export function renderCurrentWeather(weatherData:any) {
     weatherText.innerHTML = weatherTheme.text;
     weatherIcon.innerHTML = weatherTheme.icon;
 
-    weatherText.innerHTML = getWeatherText(weatherData.current.weather_code);
 }
 
 //══════════════════════════════════════════════════════════════════════════════════════════════════════

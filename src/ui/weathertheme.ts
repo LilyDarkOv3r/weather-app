@@ -66,7 +66,7 @@ function getWeatherTheme(weatherCode: number) {
                 text: "Viharos"
             };
 
-    }
+    }   
 
 }
 
