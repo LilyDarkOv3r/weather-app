@@ -6,66 +6,58 @@ export { updateDayTime };
 const overlay = document.querySelector("#overlay") as HTMLDivElement;
 const cycleIcon = document.querySelector("#cycleicon") as HTMLDivElement;
 
+const base = import.meta.env.BASE_URL;
+
 function getWeatherTheme(weatherCode: number) {
     switch (true) {
-
         case weatherCode <= 1:
             return {
-                background:
-                
-                    "/images/sunny.avif",
+                background: `${base}images/sunny.avif`,
                 icon: "☀️",
                 text: "Tiszta ég"
             };
 
         case weatherCode <= 3:
             return {
-                background:
-                    "/images/partlycloudy.avif",
+                background: `${base}images/partlycloudy.avif`,
                 icon: "⛅",
                 text: "Derült"
             };
 
         case weatherCode <= 48:
             return {
-                background:
-                    "/images/cloudy.avif",
+                background: `${base}images/cloudy.avif`,
                 icon: "☁️",
                 text: "Felhős"
             };
 
         case weatherCode <= 57:
             return {
-                background:
-                    "/images/drizzle.avif",
+                background: `${base}images/drizzle.avif`,
                 icon: "🌫️",
                 text: "Borult"
             };
 
         case weatherCode <= 67:
             return {
-                background:
-                    "/images/drizzle.avif",
+                background: `${base}images/drizzle.avif`,
                 icon: "🌧️",
                 text: "Esős"
             };
 
         case weatherCode <= 77:
             return {
-                background:
-                    "/images/snowy.avif",
+                background: `${base}images/snowy.avif`,
                 icon: "❄️",
                 text: "Havas"
             };
 
         default:
             return {
-                background:
-                    "/images/thunderstorm.avif",
+                background: `${base}images/thunderstorm.avif`,
                 icon: "⛈️",
                 text: "Viharos"
             };
-
     }   
 
 }
